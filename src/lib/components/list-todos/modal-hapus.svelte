@@ -10,8 +10,9 @@
 		<h1 class="mb-6 text-center text-2xl font-bold">Apakah yakin menghapus ?</h1>
 		<Form
 			action="/?/deleteTodo"
+			title="Hapus todo"
 			let:loading
-			onsuccess={() => (open = false)}
+			onprocess={() => (open = false)}
 			class="flex items-center justify-center gap-x-3"
 		>
 			<input type="hidden" name="id" value={id} />

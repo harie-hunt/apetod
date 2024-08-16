@@ -7,7 +7,7 @@
 	export let todo: Todo;
 </script>
 
-<Form action="/?/updateCompleted" let:loading class="flex-1">
+<Form action="/?/updateCompleted" let:loading class="flex-1" title="Ubah todo">
 	<input type="hidden" name="id" value={todo.id} />
 	<input type="hidden" name="is_completed" value={!todo.is_completed} />
 	<button

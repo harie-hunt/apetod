@@ -28,7 +28,7 @@ export const actions = {
 			const data = await createTodoSchema.parseAsync(form);
 			await delay();
 			const todo = await prisma.todo.create({ data });
-			return { todo, message: 'Berhasil tambah todo !' };
+			return { todo, success: true, message: 'Berhasil tambah todo !' };
 		} catch (e) {
 			console.log(e);
 			return { message: 'Gagal tambah todo !' };
@@ -44,7 +44,7 @@ export const actions = {
 				where: { id: data.id },
 				data: { is_completed: data.is_completed }
 			});
-			return { update: todo, message: 'Berhasil ubah todo !' };
+			return { update: todo, success: true, message: 'Berhasil ubah todo !' };
 		} catch (e) {
 			console.log(e);
 			const err = errorHandle(e);
@@ -61,7 +61,7 @@ export const actions = {
 			await prisma.todo.delete({
 				where: { id: data.id }
 			});
-			return { delete: { id: data.id }, message: 'Berhasil hapus todo !' };
+			return { delete: { id: data.id }, success: true, message: 'Berhasil hapus todo !' };
 		} catch (e) {
 			console.log(e);
 			const err = errorHandle(e);

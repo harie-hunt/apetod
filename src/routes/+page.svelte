@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ListTodos from '$lib/components/ListTodos.svelte';
 	import Loading from '$lib/components/loading.svelte';
+	import { flash } from '$lib/stores/flash';
 	import { todos } from '$lib/stores/todo';
 	import type { ActionData, PageData } from './$types';
 
@@ -18,7 +19,10 @@
 
 	$: if (form?.delete) todos.update((n) => n.filter((val) => val.id != form.delete.id));
 
-	$: if (form?.message) console.log('Message:', form.message);
+	$: if (form?.message) {
+		flash.add({ type: form.success ? 'success' : 'error', text: form.message });
+		console.log('Message:', form.message);
+	}
 
 	data.promise_todos.then((val) => {
 		loading = false;

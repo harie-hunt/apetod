@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
+	import { flash, flashs } from '$lib/stores/flash';
 	import Button from '$lib/ui/button.svelte';
 	import { tick } from 'svelte';
 	import { fly } from 'svelte/transition';
@@ -31,10 +32,11 @@
 				class="space-y-3"
 				use:enhance={() => {
 					loading = true;
+					flash.add({ type: 'loading', text: 'Proses tambah..' });
+					isOpen = false;
 					return async ({ result }) => {
 						await applyAction(result);
 						loading = false;
-						isOpen = false;
 					};
 				}}
 			>
