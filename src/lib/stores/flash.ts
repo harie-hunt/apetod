@@ -12,14 +12,14 @@ export const flash = {
 		flashs.set(value);
 		if (value.type == 'loading') return;
 		setTimeout(() => {
-			console.log('time out flash');
+			// console.log('time out flash');
 
 			flashs.set(undefined);
 		}, 4000);
 	},
 
 	reset() {
-		console.log('resetting flash');
+		// console.log('resetting flash');
 
 		flashs.set(undefined);
 	}

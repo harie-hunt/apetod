@@ -23,7 +23,7 @@
 			animate:flip
 			in:fly={{ x: -50, delay: 200 * index }}
 			out:fly={{ x: 50 }}
-			class={cn('flex bg-white px-4 py-3', { 'bg-green-50': todo.is_completed })}
+			class={cn('flex items-start bg-white px-4 py-3', { 'bg-green-50': todo.is_completed })}
 		>
 			<TodosText {todo} />
 			{#if !todo.is_completed}

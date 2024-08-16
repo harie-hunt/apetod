@@ -13,7 +13,7 @@
 
 <button
 	on:click={() => (isOpen = true)}
-	class="float-right rounded-full border p-1 text-red-500 hover:bg-red-100"
+	class="rounded-full border p-1 text-red-500 hover:bg-red-100"
 >
 	<Icon icon="mdi:trash" />
 </button>

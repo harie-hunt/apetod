@@ -12,7 +12,7 @@
 	<input type="hidden" name="is_completed" value={!todo.is_completed} />
 	<button
 		type="submit"
-		class={cn('inline-flex w-full items-center gap-x-3', {
+		class={cn('inline-flex w-full items-center gap-x-3 text-left', {
 			'text-green-500 line-through': todo.is_completed
 		})}
 	>
