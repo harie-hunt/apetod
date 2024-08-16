@@ -13,7 +13,8 @@ export const load = (async () => {
 			});
 			return { todos };
 		} catch (e) {
-			return error(500, 'Kesalahan database !');
+			console.log(e);
+			return { message: 'Kesalahan Database' };
 		}
 	}
 	return { promise_todos: getAllTodos() };

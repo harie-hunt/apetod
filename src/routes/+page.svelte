@@ -8,14 +8,11 @@
 
 	$: if (form?.todo) todos.update((n) => [form.todo, ...n]);
 
-	data.promise_todos
-		.then((val) => {
-			if (val) todos.set(val.todos);
-			loading = false;
-		})
-		.catch((e) => {
-			console.log(e);
-		});
+	data.promise_todos.then((val) => {
+		if (val.todos) todos.set(val.todos);
+		if (val.message) console.log(val.message);
+		loading = false;
+	});
 </script>
 
 {#if loading}
