@@ -20,9 +20,11 @@ export const actions = {
 			const form = Object.fromEntries(await request.formData());
 			const data = await createTodoSchema.parseAsync(form);
 			await delay();
-			await prisma.todo.create({ data });
+			const todo = await prisma.todo.create({ data });
+			return { todo, message: 'Berhasil tambah todo !' };
 		} catch (e) {
 			console.log(e);
+			return { message: 'Gagal tambah todo !' };
 		}
 	}
 } satisfies Actions;

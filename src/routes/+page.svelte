@@ -1,27 +1,21 @@
 <script lang="ts">
-	import ModalAdd from '$lib/components/ModalAdd.svelte';
-	import type { PageData } from './$types';
+	import ListTodos from '$lib/components/ListTodos.svelte';
+	import { todos } from '$lib/stores/todo';
+	import type { ActionData, PageData } from './$types';
 
-	export let data: PageData;
+	export let data: PageData, form: ActionData;
+	let loading: boolean = true;
+
+	$: if (form?.todo) todos.update((n) => [form.todo, ...n]);
+
+	data.promise_todos.then((val) => {
+		todos.set(val);
+		loading = false;
+	});
 </script>
 
-<header class="my-3 text-center">
-	<a href="/" class="text-2xl font-bold">APETOD</a>
-	<p class="text-gray-400">~ App Plan, To Do, Work ~</p>
-</header>
-
-{#await data.promise_todos}
+{#if loading}
 	<p>Loading..</p>
-{:then todos}
-	<ul class="my-3 divide-y bg-white">
-		{#each todos as todo}
-			<li class="p-3">
-				<p>{todo.text}</p>
-			</li>
-		{/each}
-	</ul>
-{/await}
+{/if}
 
-<ModalAdd let:open>
-	<button on:click={open} class="rounded border bg-white px-4 py-1.5">Add</button>
-</ModalAdd>
+<ListTodos />
