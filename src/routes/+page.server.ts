@@ -1,15 +1,20 @@
 import { prisma } from '$lib/server/prisma';
 import { z } from 'zod';
-import type { Actions } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { delay } from '$lib/utils/delay';
 
-export const load = (async ({ depends }) => {
+export const load = (async () => {
 	async function getAllTodos() {
 		await delay();
-		return await prisma.todo.findMany({
-			orderBy: { created_at: 'desc' }
-		});
+		try {
+			const todos = await prisma.todo.findMany({
+				orderBy: { created_at: 'desc' }
+			});
+			return { todos };
+		} catch (e) {
+			return error(500, 'Kesalahan database !');
+		}
 	}
 	return { promise_todos: getAllTodos() };
 }) satisfies PageServerLoad;
