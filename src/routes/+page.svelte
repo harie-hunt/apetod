@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ListTodos from '$lib/components/ListTodos.svelte';
+	import Loading from '$lib/components/loading.svelte';
 	import { todos } from '$lib/stores/todo';
 	import type { ActionData, PageData } from './$types';
 
@@ -7,16 +8,25 @@
 	let loading: boolean = true;
 
 	$: if (form?.todo) todos.update((n) => [form.todo, ...n]);
+	$: if (form?.update)
+		todos.update((n) =>
+			n.map((val) => {
+				if (val.id == form.update.id) val = form.update;
+				return val;
+			})
+		);
+
+	$: if (form?.delete) todos.update((n) => n.filter((val) => val.id != form.delete.id));
+
+	$: if (form?.message) console.log('Message:', form.message);
 
 	data.promise_todos.then((val) => {
-		if (val.todos) todos.set(val.todos);
-		if (val.message) console.log(val.message);
 		loading = false;
+		if (val.todos) todos.set(val.todos);
+		if (val.error) console.log(val.error);
 	});
 </script>
 
-{#if loading}
-	<p>Loading..</p>
-{/if}
+<Loading {loading} />
 
 <ListTodos />

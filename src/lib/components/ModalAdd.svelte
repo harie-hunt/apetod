@@ -44,6 +44,7 @@
 						type="text"
 						bind:this={elemInput}
 						name="text"
+						minlength="4"
 						class="w-full rounded border px-3 py-1.5"
 					/>
 				</label>
